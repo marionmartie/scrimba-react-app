@@ -1,14 +1,13 @@
 import React from 'react'
-import Header from './components/Header.jsx'
-import Footer from './components/Footer.jsx'
-import MainContent from './components/MainContent.jsx'
+import Main from './components/Main'
+import NavBar from './components/NavBar'
+
 
 const App = () => {
   return (
     <>
-      <Header />
-        <MainContent />
-      <Footer />
+      <NavBar />
+      <Main />
     </>
   )
 }
