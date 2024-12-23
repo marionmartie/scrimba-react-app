@@ -1,14 +1,21 @@
 import React from 'react'
-import Main from './components/Main'
-import NavBar from './components/NavBar'
-
-
+import Joke from './components/Joke.jsx'
 const App = () => {
+
+  const jokes = [
+    {
+      id: '1',
+      setup: 'Why don\'t skeletons fight each other?',
+      punchline: 'They don\'t have the guts.'
+    },
+    {
+      id: '2',
+      setup: ''
+    }
+  ]
+
   return (
-    <>
-      <NavBar />
-      <Main />
-    </>
+    <Joke />
   )
 }
 
