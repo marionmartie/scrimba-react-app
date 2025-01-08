@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client';
 
 function App() {
   /**
-   * Challenge: grab the employment status from the form and log it
-   * to the console. (Remember to select one of the radios before submitting)
-   * 
-   * Note: This won't work the way you might expect quite yet!
+   * Challenge: see if you can remember how to grab an array of checked
+   * items from the dietaryRestrictions checkboxes.
    */
 
   function signUp(formData) {
-    const email = formData.get("email")
-    const password = formData.get("password")
-    const employmentStatus = formData.get("employmentStatus")
-    console.log(employmentStatus)
+    const data = Object.fromEntries(formData)
+    const dietaryRestrictions = formData.getAll("dietaryRestrictions")
+    const allData = {
+      ...data,
+      dietaryRestrictions
+    }
+    
+    console.log(allData);
+    
   }
 
   return (
@@ -41,12 +44,38 @@ function App() {
             Part-time
         </label>
           <label>
-            <input type="radio" name="employmentStatus" value="full-time" />
+            <input type="radio" name="employmentStatus" defaultChecked={true} value="full-time" />
             Full-time
         </label>
         </fieldset>
 
+        <fieldset>
+          <legend>Dietary restrictions:</legend>
+          <label>
+            <input type="checkbox" name="dietaryRestrictions" value="kosher" />
+            Kosher
+        </label>
+          <label>
+            <input type="checkbox" name="dietaryRestrictions" value="vegan" />
+            Vegan
+        </label>
+          <label>
+            <input type="checkbox" name="dietaryRestrictions" defaultChecked={true} value="gluten-free" />
+            Gluten-free
+        </label>
+        </fieldset>
 
+        <label htmlFor="favColor">What is your favorite color?</label>
+        <select id="favColor" name="favColor" defaultValue="" required>
+          <option value="" disabled>-- Choose a color --</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="indigo">Indigo</option>
+          <option value="violet">Violet</option>
+        </select>
 
         <button>Submit</button>
 
