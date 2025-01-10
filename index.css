@@ -18,11 +18,6 @@ body {
     flex-direction: column;
 }
 
-.container > h1 {
-    font-size: 1.5rem;
-    margin-top: 0;
-}
-
 .counter {
     display: flex;
     align-items: flex-end;
