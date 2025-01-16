@@ -1,6 +1,8 @@
 import WindowTracker from "./WindowTracker"
+import { useState } from "react"
 
 export default function App() {
+    const [show, setShow] = useState(true)
     /**
      * Challenge:
      * 1. Create state called `show`, default to `true`
@@ -10,10 +12,10 @@ export default function App() {
     
     return (
         <main className="container">
-            <button>
+            <button onClick={() => setShow(prev => !prev)}>
                 Toggle WindowTracker
             </button>
-            <WindowTracker />
+            { show && <WindowTracker /> }
         </main>
     )
 }
