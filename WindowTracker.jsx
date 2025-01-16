@@ -16,7 +16,7 @@ export default function WindowTracker() {
         window.addEventListener("resize", () => {
             setWindowWidth(window.innerWidth)
         })
-    })
+    },[])
 
     return (
         <h1>Window width: {windowWidth}</h1>
