@@ -1,10 +1,42 @@
-
+import { useState } from "react"
+import Die from "./Die"
+import { nanoid } from "nanoid"
 
 const App = () => {
+  const generateNewDice = () => {
+    return new Array(10)
+      .fill(0)
+      .map(() => ({
+        'value' : Math.ceil(Math.random() * 6), 
+        'isHeld': false,
+        'id': nanoid()
+      }))
+  }
+      
+  const reroll = () => {
+    setDice(generateNewDice())
+  }
+
+  const changeIsHeld = (id) => {
+    console.log(id);
+    
+    setDice( prev => {
+      return prev.map( die => {
+        return die.id === id ? 
+          {...die, isHeld: !die.isHeld} : die
+      })
+    })
+  }
+
+  const [dice, setDice] = useState(generateNewDice())
+
   return(
-    <>
-      <h1 className="bg-slate-500">Hello World</h1>
-    </>
+    <main className="bg-amber-100 p-8 m-4 w-96 mx-auto">
+      <div className="dice-container py-24 grid grid-cols-5 gap-4">
+        { dice.map( num =>  <Die key={num.id} number={num.value} isHeld={num.isHeld} handlechange={changeIsHeld} id={num.id} /> )}
+      </div>
+      <button className="rounded bg-blue-600 text-white p-4 w-full" onClick={reroll}>Generate New Dice</button>
+    </main>
   )
 }
 
