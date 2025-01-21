@@ -17,16 +17,22 @@ const App = () => {
     setDice(generateNewDice())
   }
 
-  const changeIsHeld = (id) => {
-    console.log(id);
-    
-    setDice( prev => {
-      return prev.map( die => {
-        return die.id === id ? 
-          {...die, isHeld: !die.isHeld} : die
-      })
-    })
-  }
+  const changeIsHeld = (id) => 
+    setDice( prev => prev.map( die => 
+          die.id === id ? 
+            {...die, isHeld: !die.isHeld} : 
+            die
+    ))
+
+
+  // function hold(id) {
+  //   setDice(oldDice => oldDice.map(die =>
+  //       die.id === id ?
+  //           { ...die, isHeld: !die.isHeld } :
+  //           die
+  //   ))
+  // }
+  
 
   const [dice, setDice] = useState(generateNewDice())
 
