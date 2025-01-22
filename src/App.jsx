@@ -18,6 +18,10 @@ export default function App() {
       'id': nanoid()
       }))
   }
+
+  function newGame() {
+    setDice(generateNewDice())
+  }
       
   let reroll = () => 
     setDice( prev => prev.map( die => 
@@ -45,7 +49,7 @@ export default function App() {
       <div className="dice-container py-12 grid grid-cols-5 gap-4">
         { diceElements }
       </div>
-      <button className="rounded bg-blue-600 text-white p-4 w-full" onClick={reroll}>{ gameWon ? 'New Game' : 'Generate New Dice' }</button>
+      <button className="rounded bg-blue-600 text-white p-4 w-full" onClick={gameWon ? newGame : reroll}>{ gameWon ? 'New Game' : 'Generate New Dice' }</button>
       {
         gameWon && <ReactConfetti width={width} height={height} />
       }
