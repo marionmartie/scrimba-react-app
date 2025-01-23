@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
 import Die from "./Die"
+import Timer from './Timer'
 import { nanoid } from "nanoid"
 
 import { useWindowSize } from "react-use"
@@ -43,7 +44,11 @@ export default function App() {
 
   const gameWon = dice.every(die => die.isHeld) && dice.every(die => die.value === dice[0].value)
 
-  useEffect(() =>  ngbutton.current.focus() ,[gameWon])
+  useEffect(() =>  {
+    if (gameWon)
+      ngbutton.current.focus()
+
+  } ,[gameWon])
   
   const diceElements = dice.map( num =>  <Die key={num.id} number={num.value} isHeld={num.isHeld} handlechange={changeIsHeld} id={num.id} /> )
 
@@ -52,7 +57,8 @@ export default function App() {
     <main className="bg-amber-100 p-8 m-4 w-96 mx-auto">
       <h1 className="text-4xl text-center font-bold">Tenzies</h1>
       <p className="mt-8">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-      <div className="dice-container py-12 grid grid-cols-5 gap-4">
+      <Timer />
+      <div className="dice-container pb-12 pt-8 grid grid-cols-5 gap-4">
         { diceElements }
       </div>
       <button className="rounded bg-blue-600 text-white p-4 w-full" ref={ngbutton} onClick={gameWon ? newGame : reroll}>{ gameWon ? 'New Game' : 'Generate New Dice' }</button>
