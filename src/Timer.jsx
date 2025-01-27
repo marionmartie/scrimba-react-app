@@ -6,12 +6,6 @@ export default function Timer() {
 
     
     const getTime = () => {
-        // const time = new Date()
-        // setMins( Math.floor((time / 1000 / 60) % 60))
-        // setSec( Math.floor((time/1000) % 60))
-
-        // setSec( (prevSec) => prevSec == 59 ? setMins( (prevMin) => prevMin + 1 ) : prevSec + 1 )
-
         setSec( (prevSec) => {
             if (prevSec === 59) {
                 setMins((prevMins) => prevMins + 1)
@@ -28,9 +22,9 @@ export default function Timer() {
     },[])
 
     return (
-        <section className="text-center text-xl font-bold flex justify-center gap-2 pt-4">
-            <span>{ mins }</span>
-            <span>{ sec }</span>
-        </section>
+            <>
+                <span>{ mins }</span>
+                <span>{ sec }</span>
+            </>
     )
 }

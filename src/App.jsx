@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from "react"
-import Die from "./Die"
-import Timer from './Timer'
 import { nanoid } from "nanoid"
 
 import { useWindowSize } from "react-use"
 import ReactConfetti from "react-confetti"
 
+import Die from "./Die"
+import Timer from './Timer'
+import RollCounter from "./RollCounter"
+
 export default function App() {
   let [dice, setDice] = useState(generateNewDice())
+  let [rollsCounter, setRollsCounter] = useState(0)
   const {width, height} = useWindowSize()
 
   const ngbutton = useRef(null)
@@ -18,7 +21,6 @@ export default function App() {
     .fill(0)
     .map(() => ({
       'value' : Math.ceil(Math.random() * 6), 
-      // 'value': 5,
       'isHeld': false,
       'id': nanoid()
       }))
@@ -28,12 +30,15 @@ export default function App() {
     setDice(generateNewDice())
   }
       
-  let reroll = () => 
+  let reroll = () => {
+    setRollsCounter( prevCounter => prevCounter + 1 )
+
     setDice( prev => prev.map( die => 
       die.isHeld === false ?
       {...die, value: Math.ceil(Math.random() * 6)} :
       die
      ) )
+  }
 
   let changeIsHeld = (id) => 
     setDice( prev => prev.map( die => 
@@ -57,8 +62,10 @@ export default function App() {
     <main className="bg-amber-100 p-8 m-4 w-96 mx-auto">
       <h1 className="text-4xl text-center font-bold">Tenzies</h1>
       <p className="mt-8">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-      <Timer />
-      <div className="dice-container pb-12 pt-8 grid grid-cols-5 gap-4">
+        <section className="text-center text-xl font-bold flex justify-center align-middle items-center gap-2">
+          <Timer /> <span> | </span> <RollCounter counter={rollsCounter} />
+        </section>
+        <div className="dice-container pb-12 pt-8 grid grid-cols-5 gap-4">
         { diceElements }
       </div>
       <button className="rounded bg-blue-600 text-white p-4 w-full" ref={ngbutton} onClick={gameWon ? newGame : reroll}>{ gameWon ? 'New Game' : 'Generate New Dice' }</button>
